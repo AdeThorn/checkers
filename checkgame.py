@@ -95,6 +95,7 @@ class Pieces:
                 for piece in row:
                     #if piece is alreaady selected
                     if piece!='' and SELECTED==piece.rect and piece.color==color_to_play:
+
                         if piece.can_move(self, pos_x, pos_y):
                             piece.move(self,pos_x, pos_y)
                             
@@ -102,6 +103,11 @@ class Pieces:
                             TURN+=1
                             break
                         else: #check if position is result of multijump and if can do it
+                            mod=pos_x%2
+                            if pos_y%2==mod:
+                                break
+                            if pos_x==piece.x_pos and pos_y==piece.y_pos:
+                                break
                             all_paths=[]
                             path=[]
                             visited={}
@@ -306,7 +312,12 @@ class Piece:
     #def eat(self)    global TURN, SELECTED
     def can_move(self,play_board,pos_x,pos_y):
         #returns true or false 
-        
+        mod=pos_x%2
+        if pos_y%2==mod:
+            return False
+        if pos_x==self.x_pos and pos_y==self.y_pos:
+            return False
+
         if self.color=='red' or self.king_status==True: 
 
             #if going up and right: (can only do this if king or red piece)
