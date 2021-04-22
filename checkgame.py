@@ -101,7 +101,7 @@ class Pieces:
                             
                             SELECTED=None
                             TURN+=1
-                            break
+                            return
                         else: #check if position is result of multijump and if can do it
                             mod=pos_x%2
                             if pos_y%2==mod:
@@ -125,9 +125,7 @@ class Pieces:
                                         
                                         SELECTED=None
                                         TURN+=1
-                                        break
-
-                        break    
+                                        return
                         
                     
                     #check if a piece is clicked on           
@@ -485,7 +483,7 @@ screen=pygame.display.set_mode((screen_width,screen_height))
 pygame.display.set_caption('Checkm8')
 
 #game variables
-START_BUTTON=pygame.Rect(250,250,175,30)
+START_BUTTON=pygame.Rect(255,250,84,30)
 start_font=pygame.font.Font("freesansbold.ttf",32)
 CLICK=False
 
@@ -499,18 +497,19 @@ game_font=pygame.font.Font("freesansbold.ttf",32)
 
 #GAME LOOP
 while True:
-
+    #displaying start button
+    pygame.draw.rect(screen,burnt_red,START_BUTTON)
+    
     screen.fill(bg_color)
     draw_board()
 
     #get position of mouse
     mouse_x,mouse_y=pygame.mouse.get_pos()
 
-    #displaying start button
-    pygame.draw.rect(screen,burnt_red,START_BUTTON)
+    
 
-    start_text = start_font.render("Start Game",False,gold)
-    screen.blit(start_text,(250,250))#puts text surface on screen
+    start_text = start_font.render("PLAY",False,gold)
+    screen.blit(start_text,(255,250))#puts text surface on screen
 
     #checking if clicked start button
     if START_BUTTON.collidepoint((mouse_x,mouse_y)):
